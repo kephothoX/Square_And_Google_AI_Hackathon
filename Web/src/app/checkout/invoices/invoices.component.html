@@ -1,0 +1,59 @@
+<section>
+    <mat-card class="mat-elevation-z6" *ngIf="Invoices">
+        <mat-card class="mat-elevation-z2" *ngFor="let entry of Invoices">
+            <mat-card-title>
+                <h2>{{ entry.title }}</h2>
+            </mat-card-title>
+
+            <mat-card-content *ngFor="let item of entry.payment_requests">
+                <h3><span class="text-black">Request Type</span><span class="text-accent">{{ item.request_type }}</span> </h3>
+                <h2>Amount: <span class="text-primary">{{ item.computed_amount_money.amount }}</span></h2>
+
+            </mat-card-content>
+            <mat-divider></mat-divider>
+
+            <table class="mat-elevation-z6 centered p-1 m-1 flex-col-start">
+                <thead class="p-1 m-1 d-block">
+                    <tr>
+                        <td><mat-card-header>
+                                <h3>Invoice Number</h3>
+                            </mat-card-header></td>
+                        <td><mat-card-header>
+                                <h3>Order ID</h3>
+                            </mat-card-header></td>
+                        <td><mat-card-header>
+                                <h3>Status</h3>
+                            </mat-card-header></td>
+
+                    <tr>
+                </thead>
+                <tbody class="d-block">
+                    <tr class="p-1 m-1">
+                        <td class="p-1 m-1"><mat-card-subtitle> {{ entry.invoice_number }}</mat-card-subtitle></td>
+
+                        <td class="p-1 m-1"><mat-card-subtitle> {{ entry.order_id }}</mat-card-subtitle></td>
+                        <td class="p-1 m-1"> <mat-card-subtitle>{{ entry.status }}</mat-card-subtitle></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <button mat-raised-button class="text-whiter" color="primary" *ngIf="entry.public_url"><a class="text-white" href="{{ entry.public_url }}">Open Invoice</a></button>
+            
+            <button mat-raised-button class="text-whiter" color="accent" (click)="publishInvoice(entry.id, entry.version)">Publish Invoice</button>
+            <button mat-raised-button class="text-whiter" color="warn" (click)="cancelInvoice(entry.id, entry.version)">Cancel Invoice</button>
+            <mat-divider></mat-divider>
+        </mat-card>
+        <div class="spacer"></div>
+
+    </mat-card>
+
+    <mat-card *ngIf="!Invoices">
+        <mat-card-subtitle>
+            <h2>Loading Invoices......</h2>
+            <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+        </mat-card-subtitle>
+    </mat-card>
+
+
+</section>
