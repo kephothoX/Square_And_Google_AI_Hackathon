@@ -1,0 +1,294 @@
+<section>
+    <mat-card>
+        <mat-card-title>
+            <h2>Edit Catalog Item</h2>
+        </mat-card-title>
+        <mat-card-content *ngIf="Catalogue">
+
+            <form [formGroup]="editCatalogueItemForm">
+                <mat-form-field appearance="outline" class="p-1">
+                    <mat-label>ID</mat-label>
+                    <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                    <mat-hint align="end"></mat-hint>
+                    <input type="text" matInput formControlName="id" (change)="getCatalogueItemId($event)" [(ngModel)]="Catalogue.id">
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="p-1">
+                    <mat-label>Name </mat-label>
+                    <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                    <mat-hint align="end"></mat-hint>
+                    <input type="text" matInput formControlName="name" [(ngModel)]="Catalogue.item_data.name">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="p-1">
+                    <mat-label>Abbreviation </mat-label>
+                    <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                    <mat-hint align="end"></mat-hint>
+                    <input type="text" matInput formControlName="abbreviation" [(ngModel)]="Catalogue.item_data.abbreviation">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="p-1">
+                    <mat-label>label Color</mat-label>
+                    <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                    <mat-hint align="end"></mat-hint>
+                    <input type="color" matInput formControlName="label_color" [(ngModel)]="Catalogue.item_data.label_color">
+                </mat-form-field>
+
+                <div class="p-1 flex-column flex-align-items-center">
+                    <h5>Available Electronically?</h5>
+                    <mat-radio-group aria-labelledby="Available_Electronicaly" class="p-1" formControlName="available_electronically" [(ngModel)]="Catalogue.item_data.available_electronically">
+                        <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                            {{ entry }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="p-1 flex-column flex-align-items-center">
+                    <h5>Available Online?</h5>
+                    <mat-radio-group aria-labelledby="Available_Online" class="p-1" formControlName="available_online" [(ngModel)]="Catalogue.item_data.available_online">
+                        <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                            {{ entry }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="p-1 flex-column flex-align-items-center">
+                    <h5>Available For Pickup?</h5>
+                    <mat-radio-group aria-labelledby="Available_For_Pickup" class="p-1" formControlName="available_for_pickup" [(ngModel)]="Catalogue.item_data.available_for_pickup">
+                        <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                            {{ entry }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="p-1 flex-column flex-align-items-center">
+                    <h5>Is Archived?</h5>
+                    <mat-radio-group aria-labelledby="Is_Archived" class="p-1" formControlName="is_archived" [(ngModel)]="Catalogue.item_data.is_archived">
+                        <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                            {{ entry }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <input type="hidden" formControlName="version" [(ngModel)]="Catalogue.version" />
+       
+                <div clas="spacer"></div>
+
+                <mat-form-field appearance="outline" class="p-1 w-75">
+                    <mat-label>Description</mat-label>
+                    <mat-hint>
+                        Let AI Help you describe your product.i.e Type "How to best describe Freshly brewed cofeee" Then press ***Prompt*** button.
+                    </mat-hint>
+                    <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                    <textarea matInput formControlName="description" [(ngModel)]="AIResponse" [(ngModel)]="Catalogue.item_data.description"></textarea>
+                    
+                </mat-form-field>
+                <div class="spacer"></div> 
+                <mat-divider></mat-divider> 
+
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon color="accent" class="material-symbols-outline">add_circle</mat-icon>
+                                <h2 color="accent">Unleash the power of Generative AI to create an optimized description.
+                                
+                                </h2>
+                            </mat-panel-title>
+                            
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="catalogueAttributesForm">
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Product Name</mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="product_name" placeholder="Product Name">
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Product Color</mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="product_color" placeholder="Product Color">
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Product Size</mat-label>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="product_size" placeholder="Product Size">
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                            </mat-form-field>
+
+                            <mat-card-actions class="align-buttons-center">
+                                <button mat-raised-button [disabled]="!catalogueAttributesForm.valid"
+                                    (click)="generateAIDescription()"><mat-icon
+                                        class="material-symbols-outline">more_horiz</mat-icon>Generate AI Description</button>
+                            </mat-card-actions>
+                        </form>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+            
+
+                <mat-divider></mat-divider>
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon color="accent" class="material-symbols-outline">add_circle</mat-icon>
+                                <h2 color="accent">Add Item Variation</h2>
+                            </mat-panel-title>
+                            
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="editCatalogueItemVariationsForm" >
+                            <span *ngFor="let entry of Catalogue.item_data.variations">
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>ID</mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="id" [(ngModel)]="entry.id">
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Name </mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="name" [(ngModel)]="entry.item_variation_data.name">
+                            </mat-form-field>
+
+
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Amount</mat-label>
+                                <mat-hint align="end"></mat-hint><mat-icon matPrefix
+                                    class="material-symbols-outline">info</mat-icon>
+                                <input type="number" matInput formControlName="amount" [(ngModel)]="entry.item_variation_data.price_money.amount">
+                            </mat-form-field>
+
+                            <div class="p-1 flex-column flex-align-items-center">
+                                <h5>Stockable?</h5>
+                                <mat-radio-group aria-labelledby="Stockable" class="p-1" formControlName="stockable" [(ngModel)]="entry.item_variation_data.stockable">
+                                    <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                                        {{ entry }}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <div class="p-1 flex-column flex-align-items-center">
+                                <h5>Sellable?</h5>
+                                <mat-radio-group aria-labelledby="Sellable" class="p-1" formControlName="sellable" [(ngModel)]="entry.item_variation_data.sellable">
+                                    <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                                        {{ entry }}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <div class="p-1 flex-column flex-align-items-center">
+                                <h5>Available For Booking?</h5>
+                                <mat-radio-group aria-labelledby="Available_For_Booking" class="p-1" formControlName="available_for_booking" [(ngModel)]="entry.item_variation_data.available_for_booking">
+                                    <mat-radio-button color="primary" class="flex-row" *ngFor="let entry of BooleanValues" [value]="entry">
+                                        {{ entry }}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Item Id</mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="item_id" [(ngModel)]="entry.item_variation_data.item_id">
+                            </mat-form-field>
+
+                            <input type="hidden" formControlName="version" [(ngModel)]="entry.version" />
+
+
+
+                            <mat-card-actions class="align-buttons-center">
+                                <button mat-raised-button [disabled]="!editCatalogueItemVariationsForm.valid"
+                                    (click)="addEditCatalogueItemVariation()"><mat-icon
+                                        class="material-symbols-outline">add_circle</mat-icon>Add Edit Variation</button>
+                                <button mat-raised-button color="warn" class="text-white" (click)="resetEditCatalogueItemVariationsForm()"><mat-icon
+                                        class="material-symbols-outline">cancel</mat-icon>Clear</button>
+                            </mat-card-actions>
+                            </span>
+                        </form>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-divider></mat-divider>
+
+                <div class="spacer"></div>
+
+                <mat-divider></mat-divider>
+
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon color="accent" class="material-symbols-outline">add_circle</mat-icon>
+                                <h2 color="accent">Add Item Image</h2>
+                            </mat-panel-title>
+                            
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="editCatalogueItemImageForm">
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>ID</mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="id" placeholder="ID">
+                            </mat-form-field>
+
+
+                            <button mat-raised-button class="p-1">
+                                
+                                <mat-icon class="material-symbols-outlined">file</mat-icon>
+                                <input type="file" id="attachments" (change)="onFileChange($event)" accept="*"/>
+                            </button>
+
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>Name </mat-label>
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="name" placeholder="Name">
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" class="p-1">
+                                <mat-label>caption</mat-label>
+                                <mat-hint align="end"></mat-hint>
+                                <input type="text" matInput formControlName="caption" placeholder="Image Caption">
+                                <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                            </mat-form-field>
+
+                            <mat-card-actions class="align-buttons-center">
+                                <button mat-raised-button [disabled]="!editCatalogueItemImageForm.valid"
+                                    (click)="addCatalogItemImage()"><mat-icon
+                                        class="material-symbols-outline">add_circle</mat-icon>Set Image</button>
+                                <button  mat-raised-button color="warn" class="text-white" (click)="resetEditCatalogueItemImageForm()"><mat-icon
+                                        class="material-symbols-outline">cancel</mat-icon>Clear</button>
+                            </mat-card-actions>
+                        </form>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-divider></mat-divider>
+
+                <mat-card-actions class="align-buttons-center">
+                    <button mat-raised-button [disabled]="!editCatalogueItemForm.valid" [disabled]="!editCatalogueItemVariationsForm.valid"
+                        (click)="submitEditCatalogueItem()"><mat-icon
+                            class="material-symbols-outline">save</mat-icon>Add Edit Catalogue Item</button>
+                    <button mat-raised-button color="warn" class="text-white" (click)="resetEditCatalogueItemForm()"><mat-icon
+                            class="material-symbols-outline">cancel</mat-icon>Clear</button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</section>
+
