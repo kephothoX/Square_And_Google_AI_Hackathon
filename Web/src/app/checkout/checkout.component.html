@@ -1,0 +1,15 @@
+<section>
+    <mat-card>
+        <mat-card-title><h2>Orders</h2></mat-card-title>
+        <mat-card-content *ngIf="Orders">
+            
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="!Orders">
+        <mat-card-subtitle>
+            <h2>Loading Orders......</h2>
+            <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+        </mat-card-subtitle>
+    </mat-card>
+</section>
