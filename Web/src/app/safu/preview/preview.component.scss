@@ -1,0 +1,21 @@
+.catalogue-holder {
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+    flex-wrap: wrap;
+}
+
+.catalogue {
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#showCart {
+    position: absolute;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 9999;
+    display: flex !important;
+    background-color: transparent !important;
+}

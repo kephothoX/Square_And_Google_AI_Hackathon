@@ -1,0 +1,61 @@
+<div id="showCart">
+    <a routerLink="/checkout/orders">
+        <button matBadge="{{ LineItems }}" matBadgePosition="after" matBadgeColor="primary" mat-raised-button color="warn" class="text-white" (click)="getLineItems()">
+            <mat-icon class="material-symbols-outline">shopping_cart</mat-icon>
+            Checkout
+        </button>
+    </a>
+</div>
+
+<section>
+    <mat-card class="mat-elevation-z6" *ngIf="Catalogue">
+        <mat-card-content class="p-1 m-1">
+            <mat-card>
+                <mat-card-title><h2> {{ Catalogue.item_data.name }}</h2></mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-subtitle>
+                    <img  mat-card-image src="assets/images/pexels-karolina-grabowska-5632371.jpg" alt="SafuMarket">
+                </mat-card-subtitle>
+                <div class="spacer"></div>
+                <mat-card-content>
+                    {{ Catalogue.item_data.description }}
+                    
+                </mat-card-content>
+                <mat-card-footer *ngFor="let item of Catalogue.item_data.variations">
+                    <p>{{ item.item_variation_data.name }}</p>  
+                
+                    <mat-accordion hideToggle>
+                        <mat-expansion-panel #matExPanel>
+                            <mat-expansion-panel-header>
+                                <button mat-raised-button color="primary" class="text-white">
+                                    <mat-icon class="material-symbols-outlined">shopping_cart</mat-icon>
+                                    Click To {{ matExPanel.expanded ? 'Close' : 'Order' }}
+                                </button>                
+                            </mat-expansion-panel-header>
+
+                            <mat-card>
+                                <mat-form-field appearance="outline" class="p-1">
+                                    <mat-label>Quantity</mat-label>
+                                    <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+                                    <input matInput type="number" placeholder="Quantity" (change)="addToLineItems($event, item.id, item.item_variation_data.price_money.amount, Catalogue.item_data.name)"> 
+
+                                </mat-form-field>                                                                
+                            </mat-card>
+                        </mat-expansion-panel>
+                    </mat-accordion>               
+                </mat-card-footer>
+            </mat-card>
+            <mat-card-actions>            
+                
+            </mat-card-actions>
+
+        </mat-card-content>
+        
+    </mat-card>
+
+    <mat-card *ngIf="!Catalogue">
+        <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+        <mat-card-subtitle><h3>Loding Catalogue.........</h3></mat-card-subtitle>
+    </mat-card>
+</section>
+
