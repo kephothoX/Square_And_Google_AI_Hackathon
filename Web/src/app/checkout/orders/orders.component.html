@@ -1,0 +1,144 @@
+<section>
+    <mat-card>
+        <mat-table class="mat-elevation-z8" [dataSource]="LineItems">
+
+            <ng-container matColumnDef="item_name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let element ">
+                    {{ element.item_name }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+                <mat-cell *matCellDef="let element ">
+                    {{ element.quantity }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="item_amount">
+                <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{ element.item_amount }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="item_id">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let element ">
+                    <button mat-icon-button class="warn" (click)="removeItem(element.id)">
+                        <mat-icon color="warn" class="material-symbols-outline">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></mat-header-row>
+            <mat-row (click)="clickedRows.add(row)" [class.table-row-clicked]="clickedRows.has(row)"
+                *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+
+        </mat-table>
+
+
+        <mat-card-actions class="mat-elevation-z4">
+            <mat-paginator #paginator [pageSizeOptions]="pageSizeOptions" [length]="pageLength" [pageSize]="pageSize"
+                showFirstLastButtons aria-label="Select Products"></mat-paginator>
+
+            <mat-card-actions>
+                <button mat-raised-button color="accent" class="text-white" (click)="calculateOrder()">
+                    Calculate Order
+                </button>
+
+                <button mat-raised-button color="warn" class="text-white" (click)="createNewOrder()"
+                    *ngIf="Order">Proceed To Create An Order</button>
+                <button mat-raised-button color="primary" class="text-white" (click)="getPendingOrders()">
+                    Pending Orders
+                </button>
+
+            </mat-card-actions>
+        </mat-card-actions>
+
+        <mat-card *ngIf="Order">
+            <mat-card-content>
+                <table class="mat-elevation-z6 centered p-1 m-1 flex-col-start">
+                    <thead class="p-1 m-1 d-block">
+                        <tr>
+                            <td><mat-card-header>
+                                    <h3>Item Name</h3>
+                                </mat-card-header></td>
+                            <td><mat-card-header>
+                                    <h3>Amount</h3>
+                                </mat-card-header></td>
+                            <td><mat-card-header>
+                                    <h3>Quantity</h3>
+                                </mat-card-header></td>
+                            <td><mat-card-header>
+                                    <h2>Total</h2>
+                                </mat-card-header></td>
+                        <tr>
+                    </thead>
+                    <tbody class="d-block">
+                        <tr *ngFor="let item of Order.line_items" class="p-1 m-1">
+                            <td class="p-1 m-1"><mat-card-subtitle> {{ item.name }}</mat-card-subtitle></td>
+
+                            <td class="p-1 m-1"><mat-card-subtitle> {{ item.base_price_money.amount |
+                                    currency}}</mat-card-subtitle></td>
+                            <td class="p-1 m-1"> <mat-card-subtitle>{{ item.quantity }}</mat-card-subtitle></td>
+                            <td class="p-1 m-1"><mat-card-subtitle class="text-primary">{{ item.total_money.amount |
+                                    currency}}</mat-card-subtitle></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z8" *ngIf="Orders">
+            <mat-card-subtitle>
+
+            </mat-card-subtitle>
+
+            <mat-card-content *ngFor="let order of Orders">
+                <mat-card-subtitle>
+                    <h3>{{ order.id }}</h3>
+                </mat-card-subtitle>
+                <mat-card-footer class="mat-elevation-z4">
+                    <table class="mat-elevation-z6 centered p-1 m-1 flex-col-start">
+                        <thead class="p-1 m-1 d-block">
+                            <tr>
+                                <td><mat-card-header>
+                                        <h3>Item Name</h3>
+                                    </mat-card-header></td>
+                                <td><mat-card-header>
+                                        <h3>Quantity</h3>
+                                    </mat-card-header></td>
+                                <td><mat-card-header>
+                                        <h2>Amount</h2>
+                                    </mat-card-header></td>
+                            <tr>
+                        </thead>
+                        <tbody class="d-block">
+                            <tr *ngFor="let item of order.line_items" class="p-1 m-1">
+                                <td class="p-1 m-1"><mat-card-subtitle> {{ item.name }}</mat-card-subtitle></td>
+
+                                <td class="p-1 m-1"><mat-card-subtitle> {{ item.base_price_money.amount
+                                        }}</mat-card-subtitle></td>
+                                <td class="p-1 m-1"> <mat-card-subtitle>{{ item.quantity }}</mat-card-subtitle></td>
+
+                            </tr>
+                        <tbody>
+
+                    </table>
+
+                </mat-card-footer>
+                <mat-card-actions align="end" class="mat-elevation-z6">
+                    <h1>
+                        <span class="text-black">Total </span>
+                        <span class="text-warn">{{ order.total_money.amount }}</span>
+                    </h1>
+
+                    <button mat-raised-button class="text-white" color="primary" (click)="generateInvoice(order.id)">Generate Invoice</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+    </mat-card>
+
+</section>
