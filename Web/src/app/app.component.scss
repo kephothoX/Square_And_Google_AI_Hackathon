@@ -1,0 +1,24 @@
+.mat-drawer {
+    right: 0 !important;
+}
+
+#footer {
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
+}
+
+#drawer {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+#chatBtn {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    z-index: 900;
+    background-color: transparent !important;
+} 

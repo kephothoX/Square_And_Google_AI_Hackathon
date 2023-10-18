@@ -1,0 +1,44 @@
+<mat-sidenav-container class="mat-typography bg w-100 h-100 mat-elevation-z8" hasBackdrop="true">
+  
+  <mat-sidenav-content>
+    <app-header></app-header>
+
+    <router-outlet></router-outlet>
+    
+    
+    <footer id="footer">
+      <button mat-icon-button id="chatBtn" color="primary" class="mat-elevation-z8" (click)="drawer.toggle()" align="end">
+        <mat-icon class="material-symbols-outlined">chat</mat-icon>
+      </button>
+    </footer>
+   
+  </mat-sidenav-content>
+  <mat-sidenav id="drawer" #drawer  mode="over" class="w-50">
+    <mat-card class="mat-elevation-z4">
+      <mat-card-title>
+        <h2>Ask Safu</h2>
+      </mat-card-title>
+      <mat-card-content>
+        <h3 class="align-left" *ngFor="let qs of ChatPrompts"><span class="text-primary">Q: </span> {{ qs }}</h3>
+        <p class="align-right" *ngFor="let sq of ChatResponses"><span class="text-warn">A: </span>{{ sq }}</p>
+      </mat-card-content>
+      <mat-card-footer>
+        <form [formGroup]="chatForm">
+          <mat-form-field  appearance="outline" class="d-block">
+            <input type="text" matInput formControlName="text" placeholder="Ask a Question">
+            <mat-icon matPreffix class="material-symbols-outline">info</mat-icon>
+          </mat-form-field>
+
+          <button mat-icon-button color="primary" (click)="onSubmit()">
+            <mat-icon class="material-symbols-outlined">more_horiz</mat-icon>
+          </button>          
+        </form>
+      </mat-card-footer>
+    </mat-card>
+    <footer id="footer">
+      <button mat-icon-button id="chatBtn" color="primary" class="mat-elevation-z8" (click)="drawer.toggle()" align="end">
+        <mat-icon class="material-symbols-outlined">chat</mat-icon>
+      </button>
+    </footer>
+  </mat-sidenav>
+</mat-sidenav-container>
