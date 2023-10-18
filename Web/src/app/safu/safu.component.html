@@ -1,0 +1,50 @@
+<div id="showCart">
+    <a routerLink="/checkout/orders">
+        <button matBadge="{{ LineItems }}" matBadgePosition="after" matBadgeColor="primary" mat-raised-button color="warn" class="text-white" (click)="getLineItems()">
+            <mat-icon class="material-symbols-outline">shopping_cart</mat-icon>
+            Checkout
+        </button>
+    </a>
+</div>
+
+<section>
+    <mat-card class="catalogue-holder" *ngIf="Catalogue">
+        <mat-card-content class="catalogue p-1 m-1" *ngFor="let entry of Catalogue">
+            <mat-card>
+                <mat-card-title><h2> {{ entry.item_data.name }}</h2></mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-subtitle>
+                    <img  mat-card-image src="assets/images/pexels-karolina-grabowska-5632402.jpg" alt="SafuMarket">
+                </mat-card-subtitle>
+                <div class="spacer"></div>
+                <mat-card-content>
+                    {{ entry.item_data.description }}
+                    
+                </mat-card-content>
+                <mat-card-footer *ngFor="let item of entry.item_data.variations">
+                    <p>{{ item.item_variation_data.name }}</p>  
+                               
+                </mat-card-footer>
+            </mat-card>
+            <mat-card-actions>
+                <a routerLink="/safu/preview/{{ entry.id }}">
+                    <button mat-raised-button color="warn"
+                        class="text-white" >
+                        <mat-icon class="material-symbols-outline">shopping_cart</mat-icon>
+                        Order
+                    </button>
+                </a>
+            
+                
+            </mat-card-actions>
+
+        </mat-card-content>
+        
+    </mat-card>
+
+    <mat-card *ngIf="!Catalogue">
+        <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+        <mat-card-subtitle><h3>Loding Catalogue.........</h3></mat-card-subtitle>
+    </mat-card>
+</section>
+
