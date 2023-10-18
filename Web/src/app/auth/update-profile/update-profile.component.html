@@ -1,0 +1,134 @@
+<section>
+  <mat-card>
+    <mat-card-title>
+      <h3>
+        Update Profile
+      </h3>
+    </mat-card-title>
+    <mat-card-content>
+
+      <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
+        <ng-template matStepLabel>Fill out your Basic Information</ng-template>
+        <mat-form-field appearance="outline" class="p-1">
+          <mat-label>First Name </mat-label>
+          <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+          <mat-hint align="end"></mat-hint>
+          <input type="text" matInput formControlName="given_name" [(ngModel)]="FirstName">
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="p-1">
+          <mat-label>Last Name </mat-label>
+          <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+          <mat-hint align="end"></mat-hint>
+          <input type="text" matInput formControlName="family_name" [(ngModel)]="LastName">
+        </mat-form-field>
+        <div class="spacer"></div>
+      
+        <mat-form-field appearance="outline" class="p-1">
+          <mat-label>Email Address</mat-label>
+          <mat-hint align="end"></mat-hint>
+          <input type="email" matInput email="true" formControlName="email_address" [(ngModel)]="UserEmail" (change)="getEmailAddress($event)" >
+          <mat-icon matPrefix class="material-symbols-outline">mail_outline</mat-icon>
+        </mat-form-field>
+        <div class="spacer"></div>
+      
+        <mat-accordion class="matAccordion">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-card-title>
+                  <h2 class="centered">Address</h2>
+                </mat-card-title>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+      
+      
+            <mat-form-field appearance="outline" class="p-1">
+              <mat-label>Address Line 1 </mat-label>
+              <mat-hint align="end"></mat-hint>
+              <input type="text" matInput formControlName="address_line_1" placeholder="Address Line 1">
+              <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+            </mat-form-field>      
+      
+            <mat-form-field appearance="outline" class="p-1">
+              <mat-label>Address Line 2 </mat-label>
+              <mat-hint align="end"></mat-hint>
+              <input type="text" matInput formControlName="address_line_2" placeholder="Address Line 2">
+              <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+            </mat-form-field>
+            <div class="spacer"></div>
+      
+            <mat-form-field appearance="outline" class="p-1">
+              <mat-label>Locality</mat-label>
+              <mat-hint align="end"></mat-hint>
+              <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+              <input type="text" matInput formControlName="locality" placeholder="Locality">
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" class="p-1">
+              <mat-label>Administrative District Level 1</mat-label>
+              <mat-hint align="end"></mat-hint>
+              <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+              <input type="text" matInput formControlName="administrative_district_level_1"
+                placeholder="Administrative District Level 1">
+            </mat-form-field>
+            <div class="spacer"></div>
+      
+            <mat-form-field appearance="outline" class="p-1">
+              <mat-label>Postal Code</mat-label>
+              <mat-hint align="end"></mat-hint>
+              <mat-icon matPrefix class="material-symbols-outline">postal_code</mat-icon>
+              <input type="text" matInput formControlName="postal_code" placeholder="Postal Code">
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" class="p-1">
+              <mat-label>Country</mat-label>
+              <mat-hint align="end"></mat-hint>
+              <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+              <mat-select formControlName="country">
+                <mat-option *ngFor="let entry of Countries" [value]="entry.Country_Code_1"
+                  (click)="getCountryPrefix(entry.Phone_Prefix)">
+                  {{ entry.Country_Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="spacer"></div>
+      
+          </mat-expansion-panel>
+        </mat-accordion>
+      
+        <mat-form-field appearance="outline" class="p-1">
+          <mat-label>Company Name </mat-label>
+          <mat-icon matPrefix class="material-symbols-outline">info</mat-icon>
+          <mat-hint align="end"></mat-hint>
+          <input type="text" matInput formControlName="company_name" placeholder="Company Name">
+        </mat-form-field>
+        <div class="spacer"></div>
+      
+        <mat-form-field appearance="outline" class="p-1">
+          <mat-label>Phone Number </mat-label>
+          <mat-hint align="end"></mat-hint>
+          <mat-icon matPrefix class="material-symbols-outline">phone</mat-icon>
+          <span matPrefix>{{ Phone_Prefix }} </span>
+          <input type="tel" matInput tel="true" formControlName="phone_number" placeholder="Phone Number">
+        </mat-form-field>
+        <div class="spacer"></div>     
+      
+      
+        <mat-card-actions class="align-buttons-center">
+          <button type="reset" mat-raised-button color="warn" class="text-white">
+            <mat-icon class="material-symbols-outlined">cancel</mat-icon>
+            Clear
+          </button>
+          <button type="submit" mat-raised-button [disabled]="!updateProfileForm.valid">
+            <mat-icon class="material-symbols-outlined">update</mat-icon>
+            Update Profile
+          </button>
+        </mat-card-actions>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</section>
+
+
