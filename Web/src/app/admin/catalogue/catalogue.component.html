@@ -1,0 +1,35 @@
+<section>
+    <mat-card class="catalogue-holder" *ngIf="Catalogue">
+        <mat-card-content class="catalogue p-1 m-1" *ngFor="let entry of Catalogue">
+            <mat-card>
+                <mat-card-title><h2> {{ entry.item_data.name }}</h2></mat-card-title>
+                <mat-card-content>
+                    {{ entry.item_data.description }}
+                    
+                </mat-card-content>
+                <mat-card-footer *ngFor="let item of entry.item_data.variations">
+                    <p>{{ item.item_variation_data.name }}</p>  
+                               
+                </mat-card-footer>
+            </mat-card>
+            <mat-card-actions>
+                <a routerLink="/admin/catalogue/edit/{{ entry.id }}">
+                    <button mat-raised-button color="warn"
+                        class="text-white" >
+                        <mat-icon class="material-symbols-outline">edit</mat-icon>
+                        Edit
+                    </button>
+                </a>
+            
+                
+            </mat-card-actions>
+
+        </mat-card-content>
+        
+    </mat-card>
+
+    <mat-card *ngIf="!Catalogue">
+        <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+        <mat-card-subtitle><h3>Loding Catalogue.........</h3></mat-card-subtitle>
+    </mat-card>
+</section>
