@@ -88,6 +88,18 @@ export class SquareService {
     return this._httpClient.post(`${ this._appService.ApiURL }/invoices/cancel`, data, this._appService.httpOptions).pipe(catchError(this._errorService.handleError));
   }
 
+  payNow(data: any): Observable<any> {
+    return this._httpClient.post(`${ this._appService.ApiURL }/payments/now`, data, this._appService.httpOptions).pipe(catchError(this._errorService.handleError));
+  }
+
+  getCatalogueItem(data: any): Observable<any> {
+    return this._httpClient.post(`${ this._appService.ApiURL }/catalogue/search`, data, this._appService.httpOptions).pipe(catchError(this._errorService.handleError));
+  }
+
+  searchCatalogueItem(data: any): Observable<any> {
+    return this._httpClient.post(`${ this._appService.ApiURL }/catalogue/image/search`, data, this._appService.httpOptions).pipe(catchError(this._errorService.handleError));
+  }
+
 
 
   listCatalog(): Observable<any> {
