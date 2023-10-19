@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-  { path: 'safu', loadChildren: () => import('./safu/safu.module').then(m => m.SafuModule) }
+  { path: 'safu', loadChildren: () => import('./safu/safu.module').then(m => m.SafuModule) },
+  { path: 'payments', loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule) }
 ];
 
 @NgModule({

@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +48,7 @@ import { HeaderComponent } from './components/header/header.component';
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
+    MatTooltipModule,
 
   ],
   providers: [
