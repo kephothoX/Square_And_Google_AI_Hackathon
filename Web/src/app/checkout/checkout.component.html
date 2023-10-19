@@ -1,15 +1,60 @@
 <section>
-    <mat-card>
-        <mat-card-title><h2>Orders</h2></mat-card-title>
-        <mat-card-content *ngIf="Orders">
-            
+    
+    <mat-card class="mat-elevation-z8" *ngIf="Orders">
+        <mat-card-title>
+            <h2>Pending Orders</h2>
+        </mat-card-title>
+    
+        <mat-card-content *ngFor="let order of Orders">
+            <mat-card-footer class="mat-elevation-z4">
+                <table class="mat-elevation-z6 centered p-1 m-1 flex-col-start">
+                    <thead class="p-1 m-1 d-block">
+                        <tr>
+                            <td><mat-card-header>
+                                    <h3>Item Name</h3>
+                                </mat-card-header></td>
+                            <td><mat-card-header>
+                                    <h3>Quantity</h3>
+                                </mat-card-header></td>
+                            <td><mat-card-header>
+                                    <h2>Amount</h2>
+                                </mat-card-header></td>
+                        <tr>
+                    </thead>
+                    <tbody class="d-block">
+                        <tr *ngFor="let item of order.line_items" class="p-1 m-1">
+                            <td class="p-1 m-1"><mat-card-subtitle> {{ item.name }}</mat-card-subtitle></td>
+    
+                            <td class="p-1 m-1"><mat-card-subtitle> {{ item.base_price_money.amount
+                                    }}</mat-card-subtitle></td>
+                            <td class="p-1 m-1"> <mat-card-subtitle>{{ item.quantity }}</mat-card-subtitle></td>
+    
+                        </tr>
+                    <tbody>
+    
+                </table>
+    
+            </mat-card-footer>
+            <mat-card-actions align="end" class="mat-elevation-z6">
+                <h1>
+                    <span class="text-black">Total </span>
+                    <span class="text-warn">{{ order.total_money.amount }}</span>
+                </h1>
+
+                 <button mat-raised-button class="text-white" color="warn" (click)="payNow(order.total_money.amount)">
+                    <mat-icon class="material-symbols-outlined">payments</mat-icon>
+                    Pay Now
+                 </button>
+    
+                <button mat-raised-button class="text-white" color="primary" (click)="generateInvoice(order.id)">
+                    Generate Invoice To Pay Later 
+                </button>
+            </mat-card-actions>
         </mat-card-content>
     </mat-card>
 
-    <mat-card *ngIf="!Orders">
-        <mat-card-subtitle>
-            <h2>Loading Orders......</h2>
-            <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
-        </mat-card-subtitle>
+    <mat-card class="mat-elevation-z6" *ngIf="!Orders">
+        <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+        <h3 class="text-primary">Loading Orders.......</h3>
     </mat-card>
 </section>
