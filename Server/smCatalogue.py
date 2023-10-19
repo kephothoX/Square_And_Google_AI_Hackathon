@@ -49,16 +49,12 @@ async def newCatalogue(req: Request):
     if res.is_success():
         catalogue = dict(res.body)["catalog_object"]
          
-        print(catalogue)
         if catalogue["id"] is not None:
             return JSONResponse("Catalogue Item Created Successfully.")
        
         else:
-            print(res)
             return JSONResponse("Error Creating Catalogue Item.")
     elif res.is_error():
-        print("Error!!")
-        print(res.errors)
         return JSONResponse(res.errors)
     
     
@@ -101,3 +97,27 @@ async def newCatalogueImage(req: Request):
                 
                 file_obj.close()
                 return JSONResponse("Unsuccessful")     
+            
+            
+            
+            
+@app.post("/api/v1/catalogue/search")
+async def newCatalogue(req: Request):
+    body = await req.body()    
+    data = json.loads(body.decode("utf-8"))
+
+    
+    res = client.catalog.search_catalog_objects( body = data )
+
+    if res.is_success():
+        catalogue = dict(res.body)["objects"]
+         
+        print(catalogue)
+        if catalogue["id"] is not None:
+            return JSONResponse(catalogue)
+       
+        else:
+         
+            return JSONResponse("No Catalogue Item Found.")
+    elif res.is_error():
+        return JSONResponse(res.errors)

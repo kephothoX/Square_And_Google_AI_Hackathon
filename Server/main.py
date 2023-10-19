@@ -20,11 +20,11 @@ app.add_middleware(
 )
 
 
-os.environ["PALM_API_KEY"] = "****"
-os.environ["SQUARE_APPLICATION_ID"]  = "****"
-os.environ["SQUARE_APPLICATION_SECRET"] = "***"
-os.environ["SQUARE_ACCESS_TOKEN"] = "****"
-os.environ["GCLOUD_PROJECT_ID"] = "****"
+os.environ["PALM_API_KEY"] = "*******"
+os.environ["SQUARE_APPLICATION_ID"]  = "*******"
+os.environ["SQUARE_APPLICATION_SECRET"] = "********"
+os.environ["SQUARE_ACCESS_TOKEN"] = "*******"
+os.environ["GCLOUD_PROJECT_ID"] = "********"
 
 
 
@@ -35,6 +35,7 @@ import smCatalogue
 import smOrders
 import smInvoices
 import smVertexAI
+import smPayments
 
 
 

@@ -87,7 +87,7 @@ async def generateProductDescription(req: Request):
      
 
 
-def imagen():
+async def Imagen(req: Request):
     model = ImageTextModel.from_pretrained("imagetext@001")
 
     source_image = Image.load_from_file(location='/home/kephotho/Pictures/vlcsnap-2021-11-20-12h40m43s370.png')
@@ -97,8 +97,54 @@ def imagen():
         # Optional:
         number_of_results=2,
         language="en",
-    )
+    ).tolist()
+    
     print(captions)
     
     
+    
+
+    
+
+#gs://safumarket.appspot.com/pexels-karolina-grabowska-5632402.jpg
+
+@app.post("/api/v1/catalogue/image/search")
+async def describeImage(req: Request):    
+    body = await req.body()    
+    data = json.loads(body.decode("utf-8")) 
+    """Provides a quick start example for Cloud Vision."""
+
+    vision_client = vision.ImageAnnotatorClient()
+
+    file_uri = data["filePath"]
+
+    image = vision.Image()
+    image.source.image_uri = file_uri
+
+    response = vision_client.label_detection(image=image)
+    labels = response.label_annotations
+
+    keywords = []
+    print("Labels:")
+    for label in labels:
+        keywords.append(label.description)
+        print(label)
+        print(label.description)
+        
+    print(keywords[0:3])
+
+    result = client.catalog.search_catalog_objects(
+      body = {
+        "query": {
+          "text_query": {
+            "keywords": keywords[0:3]
+          }
+        }
+      }
+    )
+
+    if result.is_success():
+        print(result.body)
+    elif result.is_error():
+        print(result.errors)
 
