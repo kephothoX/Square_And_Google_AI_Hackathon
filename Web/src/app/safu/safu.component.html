@@ -18,7 +18,7 @@
                 </mat-card-subtitle>
                 <div class="spacer"></div>
                 <mat-card-content>
-                    {{ entry.item_data.description }}
+                    {{ entry.item_data.description.split('.')[0] }}
                     
                 </mat-card-content>
                 <mat-card-footer *ngFor="let item of entry.item_data.variations">

@@ -25,12 +25,14 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { SafuRoutingModule } from './safu-routing.module';
 import { SafuComponent } from './safu.component';
 import { PreviewComponent } from './preview/preview.component';
+import { SnapToShopComponent } from './snap-to-shop/snap-to-shop.component';
 
 
 @NgModule({
   declarations: [
     SafuComponent,
-    PreviewComponent
+    PreviewComponent,
+    SnapToShopComponent
   ],
   imports: [
     CommonModule,
