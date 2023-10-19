@@ -45,14 +45,16 @@
 
             <mat-card-actions>
                 <button mat-raised-button color="accent" class="text-white" (click)="calculateOrder()">
-                    Calculate Order
+                    Calculate Order Estimate
                 </button>
 
-                <button mat-raised-button color="warn" class="text-white" (click)="createNewOrder()"
-                    *ngIf="Order">Proceed To Create An Order</button>
-                <button mat-raised-button color="primary" class="text-white" (click)="getPendingOrders()">
-                    Pending Orders
-                </button>
+                <button mat-raised-button color="warn" class="text-white" (click)="createNewOrder()">Create An Order</button>
+                
+                <a routerLink="/checkout">
+                    <button mat-raised-button color="primary" class="text-white" (click)="getPendingOrders()">
+                        Pending Orders
+                    </button>
+                </a>
 
             </mat-card-actions>
         </mat-card-actions>
@@ -89,56 +91,7 @@
                     </tbody>
                 </table>
             </mat-card-content>
-        </mat-card>
-
-        <mat-card class="mat-elevation-z8" *ngIf="Orders">
-            <mat-card-subtitle>
-
-            </mat-card-subtitle>
-
-            <mat-card-content *ngFor="let order of Orders">
-                <mat-card-subtitle>
-                    <h3>{{ order.id }}</h3>
-                </mat-card-subtitle>
-                <mat-card-footer class="mat-elevation-z4">
-                    <table class="mat-elevation-z6 centered p-1 m-1 flex-col-start">
-                        <thead class="p-1 m-1 d-block">
-                            <tr>
-                                <td><mat-card-header>
-                                        <h3>Item Name</h3>
-                                    </mat-card-header></td>
-                                <td><mat-card-header>
-                                        <h3>Quantity</h3>
-                                    </mat-card-header></td>
-                                <td><mat-card-header>
-                                        <h2>Amount</h2>
-                                    </mat-card-header></td>
-                            <tr>
-                        </thead>
-                        <tbody class="d-block">
-                            <tr *ngFor="let item of order.line_items" class="p-1 m-1">
-                                <td class="p-1 m-1"><mat-card-subtitle> {{ item.name }}</mat-card-subtitle></td>
-
-                                <td class="p-1 m-1"><mat-card-subtitle> {{ item.base_price_money.amount
-                                        }}</mat-card-subtitle></td>
-                                <td class="p-1 m-1"> <mat-card-subtitle>{{ item.quantity }}</mat-card-subtitle></td>
-
-                            </tr>
-                        <tbody>
-
-                    </table>
-
-                </mat-card-footer>
-                <mat-card-actions align="end" class="mat-elevation-z6">
-                    <h1>
-                        <span class="text-black">Total </span>
-                        <span class="text-warn">{{ order.total_money.amount }}</span>
-                    </h1>
-
-                    <button mat-raised-button class="text-white" color="primary" (click)="generateInvoice(order.id)">Generate Invoice</button>
-                </mat-card-actions>
-            </mat-card-content>
-        </mat-card>
+        </mat-card> 
     </mat-card>
 
 </section>
